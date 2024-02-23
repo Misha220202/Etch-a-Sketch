@@ -1,7 +1,11 @@
-const container = document.querySelector('#container');
+const container = document.querySelector('.container');
+const start = document.querySelector('#START');
 const clear = document.querySelector('#CLEAR');
 
 function creatcanvas(x) {
+    while (container.firstChild) {
+        container.remove(container.firstChild);
+    }
     for (let i = 1; i <= x * x; i++) {
         const item = document.createElement('div');
         item.setAttribute('class', 'blank');
@@ -13,37 +17,41 @@ function creatcanvas(x) {
 }
 
 function getpixel() {
-    x = prompt('Please enter your canvas pixel (1-100):');
+    let x = prompt('Please enter your canvas pixel (1-100):');
     x = Number(x);
     if (!(Number.isInteger(x) && (x > 1 && x < 100))) {
-        alert ('Invalid input.');
+        alert('Invalid input.');
         getpixel();
     }
-    return(x);
+    return (x);
 }
 
-let pixel=getpixel();
-creatcanvas(pixel);
+let Arraycontainer = [];
 
-const Arraycontainer = Array.from(container.children);
-let ismousedown = false;
+start.addEventListener('click', () => {
+    let pixel = getpixel();
+    creatcanvas(pixel);
 
-Arraycontainer.forEach(item => {
-    item.addEventListener('mousedown', () => {
-        ismousedown = true;
-    });
-    item.addEventListener('mousemove', () => {
-        if (ismousedown == true) {
-            item.style.backgroundColor = 'black';
-            item.classList.remove('blank');
-        };
-    });
-    item.addEventListener('mouseup', () => ismousedown = false)
-    item.addEventListener('mouseenter', () => {
-        if (ismousedown == false) item.style.backgroundColor = 'black';
-    })
-    item.addEventListener('mouseleave', () => {
-        if (ismousedown == false && item.className == 'blank') item.style.backgroundColor = 'lightblue';
+    Arraycontainer = Array.from(container.children);
+    let ismousedown = false;
+
+    Arraycontainer.forEach(item => {
+        item.addEventListener('mousedown', () => {
+            ismousedown = true;
+        });
+        item.addEventListener('mousemove', () => {
+            if (ismousedown == true) {
+                item.style.backgroundColor = 'black';
+                item.classList.remove('blank');
+            };
+        });
+        item.addEventListener('mouseup', () => ismousedown = false)
+        item.addEventListener('mouseenter', () => {
+            if (ismousedown == false) item.style.backgroundColor = 'black';
+        })
+        item.addEventListener('mouseleave', () => {
+            if (ismousedown == false && item.className == 'blank') item.style.backgroundColor = 'lightblue';
+        })
     })
 })
 
@@ -53,7 +61,3 @@ clear.addEventListener('click', () => {
         item.setAttribute('class', 'blank');
     })
 })
-
-
-
-
