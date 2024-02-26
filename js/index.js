@@ -4,7 +4,7 @@ const clear = document.querySelector('#CLEAR');
 
 function creatcanvas(x) {
     while (container.firstChild) {
-        container.remove(container.firstChild);
+        container.removeChild(container.firstChild);
     }
     for (let i = 1; i <= x * x; i++) {
         const item = document.createElement('div');
@@ -14,6 +14,7 @@ function creatcanvas(x) {
         item.style.backgroundColor = 'lightblue';
         container.appendChild(item);
     }
+    console.log(`canvas created: ${x} pixels! \n`)
 }
 
 function getpixel() {
@@ -21,7 +22,7 @@ function getpixel() {
     x = Number(x);
     if (!(Number.isInteger(x) && (x > 1 && x < 100))) {
         alert('Invalid input.');
-        getpixel();
+        return getpixel();
     }
     return (x);
 }
@@ -30,6 +31,7 @@ let Arraycontainer = [];
 
 start.addEventListener('click', () => {
     let pixel = getpixel();
+    // console.log(pixelS);
     creatcanvas(pixel);
 
     Arraycontainer = Array.from(container.children);
